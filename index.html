@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="ko">
+	<head>
+		<!-- 
+			행렬 계산기
+			각 행렬 간의 덧셈 / 뺏셈 / 곱셈 연산 가능
+			Matrix1, Matrix2에 각각의 행렬 생성
+			각 행렬의 Draw버튼 옆의 input에 행,열의 갯수 입력.
+			각 행렬의 요소들의 기본값은 0으로 생성, 
+			행렬과 Result의 사이의 Select에서 matrix와 행동을 선택해서 행렬의 값을 바꿀 수 있다.( random, 기본행렬, O행렬, 전치행렬 )
+	-->
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="msapplication-TileColor" content="#da532c">
+		<meta name="theme-color" content="#ffffff">
+		<link rel="apple-touch-icon" sizes="180x180" href="./favicon/apple-touch-icon.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="./favicon/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="./favicon/favicon-16x16.png">
+		<link rel="manifest" href="./favicon/site.webmanifest">
+		<link rel="mask-icon" href="./favicon/safari-pinned-tab.svg" color="#5bbad5">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+		<link rel="stylesheet" href="./style/default.css">
+		<link rel="stylesheet" href="./style/mainStyle.css">
+		<title>Matrix Calculator</title>
+	</head>
+	<body>
+		<section id="matrixCalculator" class="matrixCalculator">
+			<h1>Matrix Calculator</h1>
+
+			<div class="info">
+				<p><span class="xi-info"></span>각 행, 열의 갯수의 최대 입력값은 <span class="marked"> 7 </span>까지 가능합니다.</p>
+				<p><span class="xi-info"></span>각 행렬의 요소들은 <span class="marked"> 0 ~ 99 </span> 사이의 값으로 입력이 가능합니다.</p>
+			</div>
+
+			<div class="matrixBox">
+				<div class="matrixes">
+					<h2>Matrix 1</h2>
+					<div class="inputBox">
+						<input type="number" id="rowLength1" value="0" min="0" max = "7">
+						<span class="xi-close"></span>
+						<input type="number" id="columnLength1" value="0" min="0" max = "7">
+						<button id="drawBtn1" class="drawBtn">Draw</button>
+					</div>
+					<div id="firstDisplayArea" class="displayArea"></div>
+				</div>	
+				
+				<div class="matrixes">
+					<h2>Matrix 2</h2>
+					<div class="inputBox">
+						<input type="number" id="rowLength2" value="0" min="0" max = "7">
+						<span class="xi-close"></span>	
+						<input type="number" id="columnLength2" value="0" min="0" max = "7">
+						<button id="drawBtn2" class="drawBtn">Draw</button>
+					</div>
+					<div id="secondDisplayArea" class="displayArea"></div>
+				</div>	
+				
+				<ul class="btnBox">
+					<li class="sideBtn">
+						<div class="selectBox">
+							<h3>Choice matrix</h3>
+							<select id="matrixChoice" name="matrixChoice" >
+								<option value="firstMatrix"selected>Matrix 1</option>
+								<option value="secondMatrix">Matrix 2</option>
+							</select>
+						</div>
+						
+						<div class="selectBox">
+							<h3>Choice Action</h3>
+							<select id="actionChoice" name="actionChoice" >
+								<option value="random" selected>Random</option>
+								<option value="identity">Identity matrix</option>
+								<option value="zero">O Matrix</option>
+								<option value="transpose">Transpose Matrix</option>
+							</select>
+						</div>
+						<button id="doAction" class="doAction">Do!!</button>
+					</li>
+				
+					<li><button id="plusBtn"><span class="xi-plus"></span></button></li>
+					<li><button id="minusBtn"><span class="xi-minus"></span></button></li>
+					<li><button id="timesBtn"><span class="xi-close"></span></button></li>
+				</ul>
+				
+				<div class="resultmatrix">
+					<h2>Result</h2>
+					<div id="resultArea" class="resultArea"></div>
+				</div>	
+			</div>
+		</section>
+		
+		
+		<section id="alertFailedBox" class="alertFailedBox"> 
+			<div class="alertPara_wrap">
+				<p class="alertNotice">Warning</p>
+				<div class="alertParaBox">
+					<p id="alertParagraph1" class="alertParagraph1"></p>
+				</div>
+				<div class="alertParaBox">
+					<a href="https://www.flaticon.com/free-icons/matrix" title="matrix icons" class="flaticon">Matrix icons created by Freepik - Flaticon</a>
+					<p id="alertParagraph2" class="alertParagraph2"></p>
+				</div>
+				<button id="alertCheck" class="alertCheck">Okay</button>
+			</div>
+		</section>
+		
+		<script>
+			(function main(){
+				//각 행, 렬의 갯수 입력 칸의 숫자 설정
+				const preventInputValue=()=>{
+					this.addEventListener("input" , (evt)=>{
+						if( evt.target.type === "number" ){
+							if( evt.target.id === "rowLength1" || evt.target.id === "columnLength1" || evt.target.id === "rowLength2" || evt.target.id === "columnLength2" ){
+								if( evt.target.value >=0 && evt.target.value <= 7 ){
+									evt.target.value = Number(evt.target.value);
+								}else{
+									evt.target.value = 0;
+								}
+							}
+						}
+					})
+				}
+
+				//행렬 생성 및 각 cell의 기본값 0으로 설정
+				function makeMatrix(arrayParameter, arrayRowInput, arrayColInput){
+					let arrayName = arrayParameter;
+					arrayName = [];
+					// console.log(arrayRowInput.value)
+					// console.log(arrayColInput.value)
+					for(let i=0; i < arrayRowInput.value; i++){
+						arrayName.push([]);
+						for(let j = 0; j < arrayColInput.value; j++){
+							arrayName[i].push( 0 );
+						};
+					};
+					return arrayName;
+				};
+
+				//화면 기본 구조 출력
+				const setMatrixValue=( arrayParameter, arrayRow, arrayCol )=>{
+					let arrayName = arrayParameter;
+					for(let i=0; i < arrayName.length; i++){
+						for(let j=0; j < arrayName[i].length; j++){
+							document.getElementsByClassName(arrayRow)[i].getElementsByClassName(arrayCol)[j].value = arrayName[i][j];
+							document.getElementsByClassName(arrayRow)[i].getElementsByClassName(arrayCol)[j].oninput = function(evt){
+								//console.log(typeof evt.target.value)
+								if( evt.target.value >= 0 && evt.target.value <= 99 ){
+									arrayName[i][j] = Number(evt.target.value);
+									evt.target.value = arrayName[i][j];
+								}else{
+									evt.target.value = 0;
+									arrayName[i][j] = Number(evt.target.value);
+									evt.target.value = arrayName[i][j];
+								}
+							}
+						}
+					}
+					return arrayName;
+				}
+				
+				//Draw 버튼을 클릭하면 input의 행,열 숫자 값을 불러와서 그에 따른 배열 생성, 그 배열을 시각화
+				const setMatrixes=( btnSelector, arrayParameter, matrixRow, matrixCol, matrixDisplayAreaId, divRowId, divColId )=>{
+					let matrixRowInput = matrixRow;
+					let matrixColInput = matrixCol;
+					let arrayName = arrayParameter;
+					
+					const drawBtnClick=()=>{
+						document.getElementById( btnSelector ).onclick = function (){
+							rowResultHTML = "";
+							columnResultHTML = "";
+							arrayParameter = [...makeMatrix(arrayParameter, matrixRowInput, matrixColInput)];
+							
+							for(let i = 0; i < matrixRowInput.value; i++){
+								rowResultHTML += `<div class='${divRowId}'></div>`;
+							}
+								
+							document.getElementById( matrixDisplayAreaId ).innerHTML = rowResultHTML;
+							
+							for(let j = 0; j < matrixColInput.value; j++){
+								columnResultHTML += `<input type="number" class='${divColId}' value = "0" min="0" max="99">`;
+							}	
+							
+							for(let j = 0; j < document.getElementsByClassName(divRowId).length; j++){
+								document.getElementsByClassName( divRowId )[j].innerHTML = columnResultHTML;
+							}
+							
+							switch(btnSelector){
+								case "drawBtn1":
+								firstArray = [...setMatrixValue( makeMatrix(arrayName, matrixRowInput, matrixColInput), divRowId, divColId )];
+								break;
+
+								case "drawBtn2":
+								secondArray = [...setMatrixValue( makeMatrix(arrayName, matrixRowInput, matrixColInput), divRowId, divColId )];
+								break;
+							};
+						};
+					};
+
+					drawBtnClick();
+				}
+
+				//결과 배열 시각화
+				function setResultArray(){
+					resultAreaRowHTML = "";
+					resultAreaColumnHTML = "";
+					for(let i = 0; i < resultArray.length; i++){
+						resultAreaRowHTML += "<div class='resultRow'></div>";
+						resultArea.innerHTML = resultAreaRowHTML;
+					}
+				
+					for(let i = 0; i < secondArray[0].length; i++){
+						resultAreaColumnHTML += "<input class='resultColumn' value='0' readonly>";
+					}
+
+					
+					for(let i = 0; i < resultArray.length; i++){
+						document.querySelectorAll(".resultRow")[i].innerHTML = resultAreaColumnHTML;
+					}
+					
+					for(let i=0; i < resultArray.length; i++){
+						for(let j = 0; j < resultArray[i].length; j++){
+							document.querySelectorAll(".resultRow")[i].querySelectorAll(".resultColumn")[j].value = resultArray[i][j] ;
+							if(document.querySelectorAll(".resultRow")[i].querySelectorAll(".resultColumn")[j].value.length > 3){
+								let dotString = "";
+								let reverseDotString = "";
+								for(let k = document.querySelectorAll(".resultRow")[i].querySelectorAll(".resultColumn")[j].value.length-1; k >= 0; k--){
+									if( (document.querySelectorAll(".resultRow")[i].querySelectorAll(".resultColumn")[j].value.length) - k - 1 == 2){
+										dotString += document.querySelectorAll(".resultRow")[i].querySelectorAll(".resultColumn")[j].value[k] + ",";
+									}else{
+										dotString += document.querySelectorAll(".resultRow")[i].querySelectorAll(".resultColumn")[j].value[k];
+									}
+									//console.log(dotString)
+									reverseDotString = "";
+									for(let l = dotString.length-1; l >= 0; l--){
+										reverseDotString += dotString[l];
+									}
+									//console.log(reverseDotString)
+									//console.log(reverseDotString)
+								} ;
+								//console.log(typeof(document.querySelectorAll(".resultRow")[i].querySelectorAll(".resultColumn")[j].value)) ;
+								//console.log(reverseDotString)
+								document.querySelectorAll(".resultRow")[i].querySelectorAll(".resultColumn")[j].value = reverseDotString; 
+							}
+						}
+					}
+					//console.log(resultArray)
+				}	
+				
+				//연산 담당 버튼들  클릭
+				const matrixCalulation = ()=>{
+					//행렬 더하기 버튼 클릭	
+					(function calculationPlusMatrix(){
+						document.getElementById("plusBtn").onclick = function(){
+							if( ( firstArray.length > 0 && firstArray[0].length > 0 ) && ( ( firstArray.length === secondArray.length ) && ( firstArray[0].length === secondArray[0].length) )){
+								resultArray = [];
+								for(let i = 0; i < firstArray.length; i++){
+									resultArray.push([]);
+									for(let j = 0; j < firstArray[i].length; j++){
+										resultArray[i].push(firstArray[i][j] + secondArray[i][j]);
+									}
+								}
+								setResultArray();
+							}else if( ( firstArray.length == 0 || firstArray[0].length == 0 ) || ( secondArray.length == 0 || secondArray[0].length == 0 )){
+								alertFailed("행렬이 존재하지 않습니다.", "행렬을 생성하십시오.");
+							}else{
+								alertFailed("두 행렬의 크기가 서로 다릅니다","행렬의 크기를 확인하십시오.");
+								// document.querySelectorAll(".alertParaBox").forEach(paraBox=>{
+								// 	paraBox.style.paddingLeft = '40px';
+								// 	paraBox.style.boxSizing = 'border-box';
+								// })
+							}
+						}
+					})();
+						
+					//행렬 빼기 버튼 클릭
+					(function calculationMinusMatrix(){
+						document.getElementById("minusBtn").onclick = function(){
+							if( ( firstArray.length > 0 && firstArray[0].length > 0 ) && ( ( firstArray.length === secondArray.length ) && ( firstArray[0].length === secondArray[0].length) )){
+								resultArray = [];
+								for(let i = 0; i < firstArray.length; i++){
+									resultArray.push([]);
+									for(let j = 0; j < firstArray[i].length; j++){
+										resultArray[i].push(firstArray[i][j] - secondArray[i][j]);
+									}
+								}
+								setResultArray();
+							}else if( ( firstArray.length == 0 || firstArray[0].length == 0 ) || ( secondArray.length == 0 || secondArray[0].length == 0 )){
+								alertFailed("행렬이 존재하지 않습니다.", "행렬을 생성하십시오.");
+							}else{
+								alertFailed("두 행렬의 크기가 서로 다릅니다","행렬의 크기를 확인하십시오.");
+								// document.querySelectorAll(".alertParaBox").forEach(paraBox=>{
+								// 	paraBox.style.paddingLeft = '40px';
+								// 	paraBox.style.boxSizing = 'border-box';
+								// })
+							}
+						}
+					})();
+						
+					//행렬 곱하기 버튼 클릭
+					(function calculationTimesMatrix(){
+						document.getElementById("timesBtn").onclick = function(){
+							if( ( firstArray.length > 0 && firstArray[0].length > 0 ) && ( firstArray[0].length === secondArray.length )){
+								resultArray = [];
+								for(let i = 0; i < firstArray.length; i++){ 
+									resultArray.push([]);
+									for(let j = 0; j < secondArray[0].length; j++){
+										resultArray[i].push([]);
+									}
+								}
+
+								
+								for(let i=0; i < resultArray.length; i++){
+									for(let j = 0; j < secondArray[i].length; j++){
+										totalArrayValue = 0;
+										for(let k = 0; k < firstArray[i].length; k++){
+											totalArrayValue +=  firstArray[i][k] * secondArray[k][j]; 
+										}
+										resultArray[i][j] = totalArrayValue;
+									}
+								}
+								setResultArray();
+							}else if( ( firstArray.length == 0 || firstArray[0].length == 0 ) || ( secondArray.length == 0 || secondArray[0].length == 0 )){
+								alertFailed("행렬이 존재하지 않습니다.", "행렬을 생성하십시오.");
+							}else{
+								alertFailed("행과 열의 길이가 서로 다릅니다","행, 열의 크기를 일치시켜 주십시오.");
+								// document.querySelectorAll(".alertParaBox").forEach(paraBox=>{
+								// 	paraBox.style.paddingLeft = '40px';
+								// 	paraBox.style.boxSizing = 'border-box';
+								// })
+							}
+						}
+					})();
+				}
+
+				//행렬 변형 기능들
+				const sideFunctionSelect = ()=>{
+					const matrixRandom = (matrixes)=>{
+						let Random_matrix = matrixes;
+						for(let i=0; i < Random_matrix.length; i++){
+							for(let j = 0; j < Random_matrix[i].length;j++){
+								Random_matrix[i][j] =  Math.floor(Math.random()*100) ;
+							}
+						};
+
+						switch(matrixes){
+							case firstArray : firstArray = Random_matrix;break;
+							case secondArray : secondArray = Random_matrix;break;
+						}
+					};
+
+					const matrixIdentity = (matrixes)=>{
+						let identity_matrix = matrixes;
+						for(let i=0; i < identity_matrix.length; i++){
+							for(let j = 0; j < identity_matrix[i].length; j++){
+								if( i == j ){
+									identity_matrix[i][j] =  1;
+								}else{
+									identity_matrix[i][j] = 0;
+								};
+							};
+						};
+						
+						switch(matrixes){
+							case firstArray : firstArray = identity_matrix;break;
+							case secondArray : secondArray = identity_matrix;break;
+						}
+					};
+
+					const matrixZero = (matrixes)=>{
+						let Zero_matrix = matrixes;
+						for(let i=0; i < Zero_matrix.length; i++){
+							for(let j = 0; j < Zero_matrix[0].length;j++){
+								Zero_matrix[i][j] = 0;
+							};
+						};
+
+						switch(matrixes){
+							case firstArray : firstArray = Zero_matrix;break;
+							case secondArray : secondArray = Zero_matrix;break;
+						}
+					};
+					
+					const matrixTranspose = ( matrixes, rowInput, colInput, displayClass, rowClass, colClass  )=>{
+						let tempInputValue = 0;
+						let transpose_matrix = matrixes;
+						let transpose_rowInput = rowInput;
+						let transpose_colInput = colInput;
+
+						tempInputValue = transpose_colInput.value;
+						transpose_colInput.value = transpose_rowInput.value;
+						transpose_rowInput.value = tempInputValue;
+
+						let tempMatrix=[...transpose_matrix];
+						transpose_matrix = [];
+						//console.log(transpose_matrix,transpose_rowInput.value,transpose_colInput.value)
+						//console.log(displayClass, rowClass, colClass)
+						for(let i=0; i < transpose_rowInput.value; i++){
+							transpose_matrix.push([]);
+							for(let j = 0; j < transpose_colInput.value;j++){
+								transpose_matrix[i][j] = tempMatrix[j][i];
+							};
+						}; 
+						//console.log(transpose_matrix)
+						let rowResultHTML = "";
+						let columnResultHTML = "";
+						for(let i = 0; i < transpose_rowInput.value; i++){
+							rowResultHTML += `<div class='${rowClass}'></div>`;
+						}
+						//console.log(rowResultHTML)
+						document.getElementById( displayClass ).innerHTML = rowResultHTML;
+						
+						// console.log(transpose_colInput, transpose_colInput.value)
+						for(let j = 0; j < transpose_colInput.value; j++){
+							columnResultHTML += `<input type="number" class='${colClass}' value = "0" min="0" max="99">`;
+						}	
+						
+						//console.log(columnResultHTML)
+						for(let j = 0; j < document.getElementsByClassName(rowClass).length; j++){
+							document.getElementsByClassName( rowClass )[j].innerHTML = columnResultHTML;
+						}
+						
+						for(let i=0; i < transpose_matrix.length; i++){
+							for(let j = 0; j < transpose_matrix[i].length; j++){
+								document.getElementsByClassName(rowClass)[i].getElementsByClassName(colClass)[j].value = transpose_matrix[i][j];
+							}
+						}
+
+						switch(matrixes){
+							case firstArray : firstArray = transpose_matrix;break;
+							case secondArray : secondArray = transpose_matrix;break;
+						}
+					}
+					
+					document.getElementById("doAction").onclick = function(){						
+						const matrixChoice = document.getElementById("matrixChoice");
+						const actionChoice = document.getElementById("actionChoice");
+
+						switch(matrixChoice.value){
+							case "firstMatrix" : 
+								switch(actionChoice.value){
+									case "random" :
+										if( firstArray.length > 0 && firstArray[0].length > 0 ){
+											matrixRandom(firstArray);
+											setMatrixValue(firstArray, "firstRow", "firstColumn");
+										}else{
+											alertFailed("행렬이 존재하지 않습니다.", "행렬을 생성하십시오.");
+										}
+										break;
+
+									case "identity" :
+										if( (firstArray.length > 0 && firstArray[0].length > 0) && (firstArray.length === firstArray[0].length) ){
+											matrixIdentity(firstArray);
+											setMatrixValue(firstArray, "firstRow", "firstColumn");
+										}else if(firstArray.length === 0 || firstArray[0].length === 0){
+											alertFailed("행렬이 존재하지 않습니다.", "행렬을 생성하십시오.");
+										}else{
+											alertFailed("해당 행렬은 정사각행렬이 아닙니다.","행과 열을 일치 시키세요.");
+											// document.querySelectorAll(".alertParaBox").forEach(paraBox=>{
+											// 	paraBox.style.paddingLeft = '70px';
+											// 	paraBox.style.boxSizing = 'border-box';
+											// })
+										}
+										break;
+
+									case "zero" :
+										if(firstArray.length > 0 && firstArray[0].length > 0){
+											matrixZero(firstArray);
+											setMatrixValue(firstArray, "firstRow", "firstColumn");
+										}else{
+											alertFailed("행렬이 존재하지 않습니다.", "행렬을 생성하십시오.");
+										}
+										break;
+
+									case "transpose" :
+										if( firstArray.length > 0 && firstArray[0].length > 0 ){
+											matrixTranspose( firstArray, firstRowInput, firstColumnInput, "firstDisplayArea", "firstRow", "firstColumn");
+											setMatrixValue(firstArray, "firstRow", "firstColumn"); 
+										}else{
+											alertFailed("행렬이 존재하지 않습니다.", "행렬을 생성하십시오.");
+										}
+										break;
+
+									default : 
+										setMatrixValue(firstArray, "firstRow", "firstColumn");
+										break;
+								}
+								break;
+
+							case "secondMatrix" : 
+								switch(actionChoice.value){
+									case "random" : 
+										if(secondArray.length > 0 && secondArray[0].length > 0 ){
+											matrixRandom(secondArray);
+											setMatrixValue(secondArray, "secondRow", "secondColumn");
+										}else{
+											alertFailed("행렬이 존재하지 않습니다.", "행렬을 생성하십시오.");
+										}
+										break;
+
+									case "identity" :
+										if( ( secondArray.length > 0 && secondArray[0].length > 0 ) && ( secondArray.length === secondArray[0].length )){
+											matrixIdentity(secondArray)
+											setMatrixValue(secondArray, "secondRow", "secondColumn");
+										}else if( secondArray.length === 0 || secondArray[0].length === 0 ){
+											alertFailed("행렬이 존재하지 않습니다.", "행렬을 생성하십시오.");
+										}else{
+											alertFailed("해당 행렬은 정사각행렬이 아닙니다.","행과 열을 일치 시키세요.");
+											// document.querySelectorAll(".alertParaBox").forEach(paraBox=>{
+											// 	paraBox.style.paddingLeft = '70px';
+											// 	paraBox.style.boxSizing = 'border-box';
+											// })
+										};
+										break;
+
+									case "zero" :
+										if(secondArray.length > 0 && secondArray[0].length > 0){
+											matrixZero(secondArray);
+											setMatrixValue(secondArray, "secondRow", "secondColumn");
+										}else{
+											alertFailed("행렬이 존재하지 않습니다.", "행렬을 생성하십시오.");
+										}
+										break;
+
+									case "transpose" :
+										if(secondArray.length > 0 && secondArray[0].length > 0 ){
+											matrixTranspose( secondArray, secondRowInput, secondColumnInput, "secondDisplayArea", "secondRow", "secondColumn");
+											setMatrixValue(secondArray, "secondRow", "secondColumn");
+										}else{
+											alertFailed("행렬이 존재하지 않습니다.", "행렬을 생성하십시오.");
+										}	
+										break;
+
+									default : 
+										setMatrixValue(secondArray, "secondRow", "secondColumn");
+										break;
+								}
+								break;
+						}
+					}
+				}
+				
+				//함수 실행 조건에 맞지 않을 경우 경고 문구 띄우기
+				const alertFailed = ( alertPara1, alertPara2 ) =>{
+					const alertPragraph1 = document.getElementById("alertParagraph1");
+					const alertPragraph2 = document.getElementById("alertParagraph2");
+					const alertCheck = document.getElementById("alertCheck");
+				
+					document.getElementById("alertFailedBox").style.display = "block";
+					alertParagraph1.innerText = alertPara1;
+					alertParagraph2.innerText = alertPara2;
+					
+					//경고 글귀 초기화
+					alertCheck.onclick = ()=>{
+						document.getElementById("alertFailedBox").style.display = "none";
+						alertParagraph1.innerText = "";
+						alertParagraph2.innerText = "";
+					}
+				}
+				
+				let firstArray = [];
+				let secondArray = [];
+				let resultArray = [];
+
+				const firstRowInput = document.getElementById("rowLength1");
+				const firstColumnInput = document.getElementById("columnLength1");
+				let firstResultArea = document.getElementById("firstResultArea");
+
+				const secondRowInput = document.getElementById("rowLength2");
+				const secondColumnInput = document.getElementById("columnLength2");
+				let secondResultArea = document.getElementById("secondResultArea");
+				
+				const firstRow = document.querySelectorAll(".firstRow");
+				const secondRow = document.querySelectorAll(".secondRow");
+				const resultArea = document.getElementById("resultArea");
+				let resultAreaRowHTML = "";
+				let resultAreaColumnHTML = "";
+
+				preventInputValue();
+				setMatrixes("drawBtn1", firstArray, firstRowInput, firstColumnInput, "firstDisplayArea", "firstRow", "firstColumn" );
+				setMatrixes("drawBtn2", secondArray, secondRowInput, secondColumnInput, "secondDisplayArea", "secondRow", "secondColumn");
+				sideFunctionSelect();
+				matrixCalulation();
+			})();	
+		</script>
+	</body>
+</html>

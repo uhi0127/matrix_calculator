@@ -1,0 +1,193 @@
+@mixin set_matrix_row{
+   width:100%;
+   display:flex; justify-content:center;align-items:center;gap:10px;
+}
+
+$boder_color:#3C3633;
+$header1_color:#2D3250;
+$header23_color:#6c739c;
+$button_gradientFrom:#6c739c;
+$button_gradientTo:#6c739c88;
+$all_inputBgColor:#FFF8E3;
+$inputBox_inputBgColor:#F3D7CA;
+
+*{
+   margin:0; padding:0;color:#444;
+   text-align:center;
+}
+
+html,body{font-size:16px;}
+body{ 
+   font-family: 'Noto Sans KR', 'Arial','Black Ops One',sans-serif,system-ui; 
+   background-color:#EEEDEB; 
+}
+h1,h2,h3{ font-family:'Black Ops One',system-ui; }
+h1{font-size:5rem;color:$header1_color;}
+h2{font-size:2.2rem; letter-spacing:1.5px;}
+h3{font-size:1.2rem;}
+h2,h3{color:$header23_color;}
+h2{margin:20px 0;}
+input{
+   width:40px; height:40px;
+   background-color:$all_inputBgColor;border-radius:10px;
+}
+button{
+   display: flex; justify-content: center; align-items: center;
+   background:linear-gradient(90deg, $button_gradientFrom,$button_gradientTo); border:0 none; border-radius: 5px; outline:0; 
+   font-weight:bold; cursor:pointer; color:#555; transition:all linear .15s;
+   font-size:1.2rem;
+
+   &:hover{
+      background:linear-gradient(90deg, lightskyblue,transparent);color:white;
+   }
+}	
+
+.matrixCalculator{
+   width:1650px;position:absolute; top:50%;left:50%; transform:translate(-50%,-50%);
+   & .info{
+      width:100%;padding-left:40px;box-sizing: border-box;margin-bottom:20px;
+      & p{
+         display:block;text-align: left;margin-bottom:10px;letter-spacing:1px;
+         & span.marked{ color:#b50000;font-weight:700;}
+      }
+   }
+
+   & .matrixBox{
+      border:1px solid $boder_color;padding:20px;box-sizing:border-box;border-radius:10px;
+      display:flex;justify-content:center;gap:15px;
+      & .matrixes{
+         //min-width:440px; 
+         padding:20px 15px;
+         border:1px solid $boder_color;box-sizing: border-box;border-radius:10px;
+
+         & .inputBox{
+            width:80%; height:50px;margin:20px auto;
+            display:flex; justify-content:space-between;align-items:center;
+            & input{width:50px; font-size:1.5rem; background: $inputBox_inputBgColor;}
+            & span[class*="xi"]{font-size:2rem;font-weight:900;}
+            & .drawBtn{width:100px;height:100%; padding:15px 20px;}
+         }
+         
+         & .displayArea{
+            width:350px;height:400px;
+            display:flex; flex-direction:column; justify-content:center; align-items:center;gap:10px;
+            .firstRow{
+               @include set_matrix_row();
+               & input{font-size:1.2rem;}
+            }
+            .secondRow{
+               @include set_matrix_row();
+               & input{font-size:1.2rem;}
+            }
+         }
+      }
+
+      .btnBox{ 
+         display:flex; flex-direction:column; justify-content:space-evenly; align-items:center;
+         & li{ 
+            display: flex;justify-content: center; align-items: center; 
+            & button{
+               width:100px; height:50px;font-size:2rem;
+               & span[class*="xi"]{transition:all linear .15s;}
+               &:hover span[class*="xi"]{color:white;}
+            }
+         }
+
+         & .sideBtn{
+            flex-direction:column; gap:20px;padding:10px;border:1px solid $boder_color;border-radius:10px; box-sizing: border-box;            
+            & select{
+               width:160px; height:40px; border:1px solid $boder_color;font-size:1.2rem;border-radius:5px;
+            }
+            & h3{margin-bottom:10px;font-weight:bold;}
+            & .doAction{width:100%; height:40px;font-size:1.5rem;}
+         }
+      }
+
+      .resultmatrix{
+         width:100%; padding:20px;
+         border:1px solid $boder_color;box-sizing: border-box;border-radius:10px;
+         & .resultArea{
+            height:400px;margin-top:90px;
+            display:flex; flex-direction:column;justify-content:center;align-items:center; gap:10px;
+            & .resultRow{
+               @include set_matrix_row();
+               & input{width:75px;font-size:1.2rem;}
+            }
+         }
+      }
+   }	
+}
+
+.alertFailedBox {
+   width: 100vw;
+   height: 100vh;
+   background: rgba(0, 0, 0, 0.7);
+   position: absolute;
+   left: 50%;
+   top: 50%;
+   transform: translate(-50%, -50%);
+   display: none;
+   
+   & p.alertNotice{
+      font-size:4rem;font-weight:bold;position:relative;
+      &::after{
+         content:"";position:absolute;left:0;right:0;bottom:-3px;height:2px;background:$header1_color;
+      }
+   }
+   & .alertPara_wrap {
+      width: 600px;
+      background: #ffffff;
+      border-radius: 40px;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 20;
+      display: flex;
+      flex-direction:column;
+      justify-content: space-evenly;
+      align-items: center;gap:20px;
+      padding:30px 0;
+      & .alertParaBox{
+         width:450px;
+         padding:40px 0;
+         position:relative;
+         &>a.flaticon{
+            width:80px; height:80px;
+            position:absolute; top:50%;left:0;transform:translateY(-50%);
+            background:url("../source/matrix.png") no-repeat center center; background-size:contain;
+            text-indent:-9999rem;
+         }
+         // &::before{
+         //    content:"";width:80px; height:80px;
+         //    position:absolute; top:55%;left:0;transform:translateY(-50%);
+         // }
+
+         &:nth-of-type(1)::before{
+            content:"";width:80px; height:80px;
+            position:absolute; top:50%;left:0;transform:translateY(-50%);
+            background:url("../source/wow_mark.png") no-repeat center center;background-size:contain;
+         }
+
+         // &:nth-of-type(2)::before{
+         //    background:url("../source/matrix.png") no-repeat center center;
+         //    background-size:contain;
+         // }
+         & p{
+            width:100%; padding-left:120px;font-size:1.4rem;text-align:left; 
+         }
+         
+         
+      }
+
+      & button.alertCheck {
+         width: 300px;
+         height: 80px;
+         font-size: 2.5rem;
+         border-radius: 20px;
+         background: #0d6efd;//#afb8c9;
+         color:white;
+         margin-bottom:unset;
+      }
+   }
+}
