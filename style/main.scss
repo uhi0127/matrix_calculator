@@ -233,7 +233,7 @@ button{
                            white-space:pre;
                         }
    
-                        & .custom-options {
+                        & .custom-options-wrapper{
                            min-width: 100%;
                            position: absolute;
                            top: 100%;
@@ -245,14 +245,15 @@ button{
                            overflow: auto;
                            transition: all 0.5s;
                            display: none;
-                           
-                           & .custom-option{
-                              padding: 10px;
-                              box-sizing: border-box;
-                              text-align: left;
-                              white-space:pre;
-                              &:active, &:hover{
-                                 background: #f3d7ca;
+                           & .custom-options {
+                              & .custom-option{
+                                 padding: 10px;
+                                 box-sizing: border-box;
+                                 text-align: left;
+                                 white-space:pre;
+                                 &:active, &:hover{
+                                    background: #f3d7ca;
+                                 }
                               }
                            }
                            &.open{

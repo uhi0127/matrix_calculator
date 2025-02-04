@@ -52,35 +52,53 @@
                         <div class="custom-select-wrapper">
                             <ul class="custom-select">
                                 <li class="custom-select-trigger" data-value="firstMatrix">Matrix 1</li>
-                                <ul class="custom-options">
-                                    <li class="custom-option selected" data-value="firstMatrix">Matrix 1</li>
-                                    <li class="custom-option" data-value="secondMatrix">Matrix 2</li>
-                                </ul>
+                                <li class="custom-options-wrapper">
+                                    <ul class="custom-options">
+                                        <li class="custom-option selected" data-value="firstMatrix">Matrix 1</li>
+                                        <li class="custom-option" data-value="secondMatrix">Matrix 2</li>
+                                    </ul>
+                                </li>
                             </ul>
                         </div>
                     </li>
+
                     <li id="choice_action" class="selectBox calculates">
                         <h3>Choice Action</h3>
                         <div class="custom-select-wrapper">
                             <ul class="custom-select">
                                 <li class="custom-select-trigger" data-value="random">Random</li>
-                                <ul class="custom-options">
-                                    <li class="custom-option selected" data-value="random">Random</li>
-                                    <li class="custom-option" data-value="identity">Identity matrix</li>
-                                    <li class="custom-option" data-value="zero">O Matrix</li>
-                                    <li class="custom-option" data-value="transpose">Transpose Matrix</li>
-                                </ul>
+                                <li class="custom-options-wrapper">
+                                    <ul class="custom-options">
+                                        <li class="custom-option selected" data-value="random">Random</li>
+                                        <li class="custom-option" data-value="identity">Identity matrix</li>
+                                        <li class="custom-option" data-value="zero">O Matrix</li>
+                                        <li class="custom-option" data-value="transpose">Transpose Matrix</li>
+                                    </ul>
+                                </li>
                             </ul>
                         </div>
                     </li>
+
                     <li class="doCalculate calculates">
                         <button id="doAction" class="doAction btns">Run</button>
                     </li>
                 </ul>
                 <ul class="calculatorBtn restrict-width">
-                    <li class="calculates"><button id="plusBtn" class="btns"><span class="fa-solid fa-plus"></span></button></li>
-                    <li class="calculates"><button id="minusBtn" class="btns"><span class="fa-solid fa-minus"></span></button></li>
-                    <li class="calculates"><button id="timesBtn" class="btns"><span class="fa-solid fa-close"></span></button></li>
+                    <li class="calculates">
+                        <button id="plusBtn" class="btns">
+                            <span class="fa-solid fa-plus"></span>
+                        </button>
+                    </li>
+                    <li class="calculates">
+                        <button id="minusBtn" class="btns">
+                            <span class="fa-solid fa-minus"></span>
+                        </button>
+                    </li>
+                    <li class="calculates">
+                        <button id="timesBtn" class="btns">
+                            <span class="fa-solid fa-close"></span>
+                        </button>
+                    </li>
                 </ul>
             </div>
             <div id="resultMatrix" class="resultMatrix">
@@ -93,7 +111,7 @@
     </section>
     <section id="alertFailedBox" class="alertFailedBox">
         <div class="alertPara_wrap">
-            <p class="alertNotice">Warning</p>
+            <h2 class="alertNotice">Warning</h2>
             <div class="alertParaBox">
                 <p id="alertParagraph1" class="alertParagraph1"></p>
             </div>

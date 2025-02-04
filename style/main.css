@@ -248,7 +248,7 @@ button:hover {
   transition: all 0.5s;
   white-space: pre;
 }
-.matrixCalculator .matrixBox .calculatorToolBox .restrict-width.selectBoxContainer .selectBox .custom-select-wrapper .custom-select .custom-options {
+.matrixCalculator .matrixBox .calculatorToolBox .restrict-width.selectBoxContainer .selectBox .custom-select-wrapper .custom-select .custom-options-wrapper {
   min-width: 100%;
   position: absolute;
   top: 100%;
@@ -261,16 +261,16 @@ button:hover {
   transition: all 0.5s;
   display: none;
 }
-.matrixCalculator .matrixBox .calculatorToolBox .restrict-width.selectBoxContainer .selectBox .custom-select-wrapper .custom-select .custom-options .custom-option {
+.matrixCalculator .matrixBox .calculatorToolBox .restrict-width.selectBoxContainer .selectBox .custom-select-wrapper .custom-select .custom-options-wrapper .custom-options .custom-option {
   padding: 10px;
   box-sizing: border-box;
   text-align: left;
   white-space: pre;
 }
-.matrixCalculator .matrixBox .calculatorToolBox .restrict-width.selectBoxContainer .selectBox .custom-select-wrapper .custom-select .custom-options .custom-option:active, .matrixCalculator .matrixBox .calculatorToolBox .restrict-width.selectBoxContainer .selectBox .custom-select-wrapper .custom-select .custom-options .custom-option:hover {
+.matrixCalculator .matrixBox .calculatorToolBox .restrict-width.selectBoxContainer .selectBox .custom-select-wrapper .custom-select .custom-options-wrapper .custom-options .custom-option:active, .matrixCalculator .matrixBox .calculatorToolBox .restrict-width.selectBoxContainer .selectBox .custom-select-wrapper .custom-select .custom-options-wrapper .custom-options .custom-option:hover {
   background: #f3d7ca;
 }
-.matrixCalculator .matrixBox .calculatorToolBox .restrict-width.selectBoxContainer .selectBox .custom-select-wrapper .custom-select .custom-options.open {
+.matrixCalculator .matrixBox .calculatorToolBox .restrict-width.selectBoxContainer .selectBox .custom-select-wrapper .custom-select .custom-options-wrapper.open {
   display: block;
 }
 .matrixCalculator .matrixBox .calculatorToolBox .restrict-width.selectBoxContainer .doCalculate {
