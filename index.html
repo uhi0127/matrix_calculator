@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="apple-touch-icon" sizes="180x180" href="./images/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./images/favicon/favicon-16x16.png">
+    <link rel="mask-icon" href="./images/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <link rel="stylesheet" href="./style/main.css">
+    <title>Matrix Calculator</title>
+</head>
+<body>
+    <section id="matrixCalculator" class="matrixCalculator">
+        <h1>Matrix Calculator</h1>
+        <div class="info">
+            <p><span class="fa fa-info-circle"></span>각 행, 열의 갯수의 최대 입력값은 <span class="marked"> 7 </span>까지 가능합니다.</p>
+            <p><span class="fa fa-info-circle"></span>각 행렬의 요소들은 <span class="marked"> 0 ~ 99 </span> 사이의 값으로 입력이 가능합니다.</p>
+        </div>
+        <div class="matrixBox">
+            <div id="firstMatrix" class="matrixes">
+                <h2>Matrix 1</h2>
+                <div class="inputBox">
+                    <input type="number" id="rowLength1" class="rows" value="0" min="0" max="7">
+                    <span class="fa-solid fa-close"></span>
+                    <input type="number" id="columnLength1" class="cols" value="0" min="0" max="7">
+                    <button id="drawBtn1" class="drawBtn">Draw</button>
+                </div>
+                <div id="firstDisplayArea" class="displayArea"></div>
+            </div>
+            <div id="secondMatrix" class="matrixes">
+                <h2>Matrix 2</h2>
+                <div class="inputBox">
+                    <input type="number" id="rowLength2" class="rows" value="0" min="0" max="7">
+                    <span class="fa-solid fa-close"></span>
+                    <input type="number" id="columnLength2" class="cols" value="0" min="0" max="7">
+                    <button id="drawBtn2" class="drawBtn">Draw</button>
+                </div>
+                <div id="secondDisplayArea" class="displayArea"></div>
+            </div>
+            <div class="calculatorToolBox">
+                <ul class="selectBoxContainer restrict-width">
+                    <li id="choice_matrix" class="selectBox calculates">
+                        <h3>Choice matrix</h3>
+                        <div class="custom-select-wrapper">
+                            <ul class="custom-select">
+                                <li class="custom-select-trigger" data-value="firstMatrix">Matrix 1</li>
+                                <ul class="custom-options">
+                                    <li class="custom-option selected" data-value="firstMatrix">Matrix 1</li>
+                                    <li class="custom-option" data-value="secondMatrix">Matrix 2</li>
+                                </ul>
+                            </ul>
+                        </div>
+                    </li>
+                    <li id="choice_action" class="selectBox calculates">
+                        <h3>Choice Action</h3>
+                        <div class="custom-select-wrapper">
+                            <ul class="custom-select">
+                                <li class="custom-select-trigger" data-value="random">Random</li>
+                                <ul class="custom-options">
+                                    <li class="custom-option selected" data-value="random">Random</li>
+                                    <li class="custom-option" data-value="identity">Identity matrix</li>
+                                    <li class="custom-option" data-value="zero">O Matrix</li>
+                                    <li class="custom-option" data-value="transpose">Transpose Matrix</li>
+                                </ul>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="doCalculate calculates">
+                        <button id="doAction" class="doAction btns">Run</button>
+                    </li>
+                </ul>
+                <ul class="calculatorBtn restrict-width">
+                    <li class="calculates"><button id="plusBtn" class="btns"><span class="fa-solid fa-plus"></span></button></li>
+                    <li class="calculates"><button id="minusBtn" class="btns"><span class="fa-solid fa-minus"></span></button></li>
+                    <li class="calculates"><button id="timesBtn" class="btns"><span class="fa-solid fa-close"></span></button></li>
+                </ul>
+            </div>
+            <div id="resultMatrix" class="resultMatrix">
+                <h2>Result</h2>
+                <div class="resultArea_wrapper">
+                    <div id="resultArea" class="displayArea"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="alertFailedBox" class="alertFailedBox">
+        <div class="alertPara_wrap">
+            <p class="alertNotice">Warning</p>
+            <div class="alertParaBox">
+                <p id="alertParagraph1" class="alertParagraph1"></p>
+            </div>
+            <div class="alertParaBox">
+                <a href="https://www.flaticon.com/free-icons/matrix" title="matrix icons" class="flaticon">Matrix icons created by Freepik - Flaticon</a>
+                <p id="alertParagraph2" class="alertParagraph2"></p>
+            </div>
+            <button id="alertCheck" class="alertCheck">Okay</button>
+        </div>
+    </section>
+    <script src="./scripts/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,521 @@
+body, header, main, footer, nav, section, div, p, aside, article, a, img, h1, h2, h3, h4, h5, h6, address, form, fieldset, legend, input, button, select, option, textarea, table, tbody, thead, tfoot, caption, th, td, ol, ul, li, dl, dt, dd, figure, figcaption, blockquote {
+  margin: 0;
+  padding: 0;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+img {
+  display: block;
+  border: 0px;
+}
+
+a {
+  text-decoration: none;
+}
+
+address, em, i {
+  font-style: normal;
+}
+
+button, fieldset, select, input {
+  border: 0;
+}
+
+legend, caption, hr {
+  display: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+* {
+  color: #444;
+  text-align: center;
+}
+
+html, body {
+  min-width: 320px;
+  font-size: 16px;
+}
+
+body {
+  font-family: "Noto Sans KR", "Arial", "Black Ops One", sans-serif, system-ui;
+  background-color: #EEEDEB;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+h1, h2, h3 {
+  font-family: "Black Ops One", system-ui;
+}
+
+h1 {
+  width: 100%;
+  font-size: clamp(1.8rem, 9vw, 3rem);
+  color: #2D3250;
+  margin-bottom: 1rem;
+}
+
+h2 {
+  font-size: clamp(1.5rem, 7vw, 2.5rem);
+  letter-spacing: 1.5px;
+  margin: 20px 0;
+  color: #5360b5;
+}
+
+h3 {
+  font-size: clamp(1.2rem, 5vw, 2rem);
+  color: #5360b5;
+}
+
+input {
+  width: clamp(28px, 10%, 40px);
+  aspect-ratio: 1/1;
+  background-color: #FFF8E3;
+  border-radius: 10px;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+}
+
+button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(90deg, #6c739c, rgba(108, 115, 156, 0.5333333333));
+  border: 0 none;
+  border-radius: 5px;
+  outline: 0;
+  font-weight: bold;
+  cursor: pointer;
+  color: #555;
+  transition: color linear 0.5s;
+  font-size: 1.2rem;
+}
+button:hover {
+  background: linear-gradient(90deg, lightskyblue, transparent);
+  color: white;
+}
+
+.matrixCalculator {
+  width: 100%;
+  padding: 1rem;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.matrixCalculator .info {
+  width: 100%;
+  padding-left: 40px;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+}
+.matrixCalculator .info p {
+  display: block;
+  text-align: left;
+  margin-bottom: 10px;
+  letter-spacing: 1px;
+}
+.matrixCalculator .info p span.marked {
+  color: #a20000;
+  font-weight: 700;
+}
+.matrixCalculator .matrixBox {
+  width: 100%;
+  padding: clamp(10px, 5%, 40px);
+  box-sizing: border-box;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  border: 1px solid #3C3633;
+}
+.matrixCalculator .matrixBox .matrixes {
+  width: 100%;
+  padding: 20px 15px;
+  border: 1px solid #3C3633;
+  box-sizing: border-box;
+  border-radius: 10px;
+}
+.matrixCalculator .matrixBox .matrixes .inputBox {
+  width: 100%;
+  height: 50px;
+  margin: 30px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(5px, 5vw, 30px);
+}
+.matrixCalculator .matrixBox .matrixes .inputBox input {
+  width: clamp(28px, 10vw, 50px);
+  font-size: 1.5rem;
+  background-color: #F3D7CA;
+}
+.matrixCalculator .matrixBox .matrixes .inputBox span[class*=fa-solid] {
+  font-size: 2rem;
+  font-weight: 900;
+}
+.matrixCalculator .matrixBox .matrixes .inputBox .drawBtn {
+  width: clamp(100px, 14vw, 150px);
+  height: clamp(35px, 10vw, 50px);
+  padding: 15px 20px;
+}
+.matrixCalculator .matrixBox .matrixes .displayArea {
+  width: 100%;
+  aspect-ratio: 1/1;
+  max-height: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 10px;
+}
+.matrixCalculator .matrixBox .matrixes .displayArea .matrix_row {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(5px, 2vw, 10px);
+}
+.matrixCalculator .matrixBox .matrixes .displayArea .matrix_row .matrix_column {
+  font-size: clamp(1rem, 5vw, 1.5rem);
+}
+.matrixCalculator .matrixBox .calculatorToolBox {
+  width: 100%;
+  padding: 20px;
+  border: 1px solid #3C3633;
+  box-sizing: border-box;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+.matrixCalculator .matrixBox .calculatorToolBox .restrict-width {
+  width: min(100%, 450px);
+}
+.matrixCalculator .matrixBox .calculatorToolBox .restrict-width.selectBoxContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(10px, 7vw, 40px);
+}
+.matrixCalculator .matrixBox .calculatorToolBox .restrict-width.selectBoxContainer .selectBox {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+.matrixCalculator .matrixBox .calculatorToolBox .restrict-width.selectBoxContainer .selectBox .custom-select-wrapper {
+  position: relative;
+  width: 100%;
+  user-select: none;
+}
+.matrixCalculator .matrixBox .calculatorToolBox .restrict-width.selectBoxContainer .selectBox .custom-select-wrapper .custom-select {
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+.matrixCalculator .matrixBox .calculatorToolBox .restrict-width.selectBoxContainer .selectBox .custom-select-wrapper .custom-select .custom-select-trigger {
+  width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  font-weight: 700;
+  color: #555;
+  background: #FFF8E3;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  transition: all 0.5s;
+  white-space: pre;
+}
+.matrixCalculator .matrixBox .calculatorToolBox .restrict-width.selectBoxContainer .selectBox .custom-select-wrapper .custom-select .custom-options {
+  min-width: 100%;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 99;
+  background: #FFF8E3;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  overflow: auto;
+  transition: all 0.5s;
+  display: none;
+}
+.matrixCalculator .matrixBox .calculatorToolBox .restrict-width.selectBoxContainer .selectBox .custom-select-wrapper .custom-select .custom-options .custom-option {
+  padding: 10px;
+  box-sizing: border-box;
+  text-align: left;
+  white-space: pre;
+}
+.matrixCalculator .matrixBox .calculatorToolBox .restrict-width.selectBoxContainer .selectBox .custom-select-wrapper .custom-select .custom-options .custom-option:active, .matrixCalculator .matrixBox .calculatorToolBox .restrict-width.selectBoxContainer .selectBox .custom-select-wrapper .custom-select .custom-options .custom-option:hover {
+  background: #f3d7ca;
+}
+.matrixCalculator .matrixBox .calculatorToolBox .restrict-width.selectBoxContainer .selectBox .custom-select-wrapper .custom-select .custom-options.open {
+  display: block;
+}
+.matrixCalculator .matrixBox .calculatorToolBox .restrict-width.selectBoxContainer .doCalculate {
+  display: block;
+  width: clamp(30px, 20%, 80px);
+  aspect-ratio: 1/1;
+  width: 100%;
+  height: 50px;
+}
+.matrixCalculator .matrixBox .calculatorToolBox .restrict-width.selectBoxContainer .doCalculate .btns {
+  width: 100%;
+  height: 100%;
+  font-size: clamp(1rem, 5vw, 1.5rem);
+}
+.matrixCalculator .matrixBox .calculatorToolBox .restrict-width.calculatorBtn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.matrixCalculator .matrixBox .calculatorToolBox .restrict-width.calculatorBtn .calculates {
+  display: block;
+  width: clamp(30px, 20%, 80px);
+  aspect-ratio: 1/1;
+}
+.matrixCalculator .matrixBox .calculatorToolBox .restrict-width.calculatorBtn .calculates .btns {
+  width: 100%;
+  height: 100%;
+  font-size: clamp(1rem, 5vw, 1.5rem);
+}
+.matrixCalculator .matrixBox .resultMatrix {
+  width: 100%;
+  padding: 20px 15px;
+  border: 1px solid #3C3633;
+  box-sizing: border-box;
+  border-radius: 10px;
+}
+.matrixCalculator .matrixBox .resultMatrix .resultArea_wrapper {
+  width: 100%;
+  aspect-ratio: 1/1;
+  min-height: 400px;
+  max-height: 500px;
+  box-sizing: border-box;
+  overflow-x: scroll;
+}
+.matrixCalculator .matrixBox .resultMatrix .resultArea_wrapper .displayArea {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 10px;
+}
+.matrixCalculator .matrixBox .resultMatrix .resultArea_wrapper .displayArea .matrix_row {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(5px, 2vw, 10px);
+  gap: clamp(10px, 4vw, 20px);
+  justify-content: space-evenly;
+}
+.matrixCalculator .matrixBox .resultMatrix .resultArea_wrapper .displayArea .matrix_row .matrix_column {
+  width: clamp(55px, 10%, 80px);
+  padding: 10px;
+  aspect-ratio: unset;
+  font-size: clamp(1rem, 2.3vw, 1.5rem);
+}
+
+.alertFailedBox {
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.7);
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: none;
+}
+.alertFailedBox.open {
+  display: block;
+}
+.alertFailedBox p.alertNotice {
+  font-size: 4rem;
+  font-weight: bold;
+  position: relative;
+}
+.alertFailedBox p.alertNotice::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -3px;
+  height: 2px;
+  background: #2D3250;
+}
+.alertFailedBox .alertPara_wrap {
+  width: 600px;
+  background: #ffffff;
+  border-radius: 40px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 20px;
+  padding: 30px 0;
+}
+.alertFailedBox .alertPara_wrap .alertParaBox {
+  width: 450px;
+  padding: 40px 0;
+  position: relative;
+}
+.alertFailedBox .alertPara_wrap .alertParaBox > a.flaticon {
+  width: 80px;
+  height: 80px;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  background: url("../images/matrix.png") no-repeat center center;
+  background-size: contain;
+  text-indent: -9999rem;
+}
+.alertFailedBox .alertPara_wrap .alertParaBox:nth-of-type(1)::before {
+  content: "";
+  width: 80px;
+  height: 80px;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  background: url("../images/wow_mark.png") no-repeat center center;
+  background-size: contain;
+}
+.alertFailedBox .alertPara_wrap .alertParaBox p {
+  width: 100%;
+  padding-left: 120px;
+  font-size: 1.4rem;
+  text-align: left;
+}
+.alertFailedBox .alertPara_wrap button.alertCheck {
+  width: 300px;
+  height: 80px;
+  font-size: 2.5rem;
+  border-radius: 20px;
+  background: #0d6efd;
+  color: white;
+  margin-bottom: unset;
+}
+
+@media screen and (min-width: 1024px) {
+  html, body {
+    font-size: 18px;
+  }
+  h1 {
+    font-size: clamp(1.8rem, 9vw, 3rem);
+  }
+  h2 {
+    font-size: min(3.5vw, 2.5rem);
+  }
+  h3 {
+    font-size: clamp(1.2rem, 3vw, 2rem);
+  }
+  .matrixCalculator {
+    width: min(100%, 1500px);
+    padding: 2rem;
+    margin: 50px auto;
+  }
+  .matrixCalculator .matrixBox {
+    height: clamp(500px, 100%, 800px);
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: stretch;
+    flex-wrap: wrap;
+  }
+  .matrixCalculator .matrixBox .matrixes {
+    width: calc((100% - 40px) / 2);
+  }
+  .matrixCalculator .matrixBox .matrixes .inputBox {
+    margin: 50px auto;
+  }
+  .matrixCalculator .matrixBox .matrixes .inputBox input {
+    width: min(13%, 4rem);
+    font-size: 2rem;
+  }
+  .matrixCalculator .matrixBox .matrixes .inputBox .drawBtn {
+    width: clamp(100px, 10vw, 150px);
+    height: 100%;
+  }
+  .matrixCalculator .matrixBox .matrixes .displayArea .matrix_row {
+    gap: clamp(5px, 0.6vw, 10px);
+  }
+  .matrixCalculator .matrixBox .matrixes .displayArea .matrix_row .matrix_column {
+    width: min(10%, 4rem);
+    font-size: 1.1rem;
+  }
+  .matrixCalculator .matrixBox .calculatorToolBox {
+    align-items: center;
+  }
+  .matrixCalculator .matrixBox .calculatorToolBox .restrict-width {
+    width: min(60%, 1000px);
+  }
+  .matrixCalculator .matrixBox .calculatorToolBox .restrict-width.selectBoxContainer {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: unset;
+  }
+  .matrixCalculator .matrixBox .calculatorToolBox .restrict-width.selectBoxContainer .selectBox {
+    width: 35%;
+  }
+  .matrixCalculator .matrixBox .calculatorToolBox .restrict-width.selectBoxContainer .doCalculate {
+    display: block;
+    width: clamp(30px, 20%, 80px);
+    aspect-ratio: 1/1;
+    height: unset;
+  }
+  .matrixCalculator .matrixBox .calculatorToolBox .restrict-width.selectBoxContainer .doCalculate .btns {
+    width: 100%;
+    height: 100%;
+    font-size: clamp(1rem, 5vw, 1.5rem);
+  }
+  .matrixCalculator .matrixBox .calculatorToolBox .restrict-width.calculatorBtn {
+    justify-content: space-between;
+  }
+  .matrixCalculator .matrixBox .resultMatrix {
+    overflow: hidden;
+  }
+  .matrixCalculator .matrixBox .resultMatrix h2 {
+    margin: 20px 0 60px;
+  }
+  .matrixCalculator .matrixBox .resultMatrix .resultArea_wrapper {
+    overflow-x: scroll;
+  }
+  .matrixCalculator .matrixBox .resultMatrix .resultArea_wrapper .displayArea .matrix_row {
+    justify-content: center;
+  }
+  .matrixCalculator .matrixBox .resultMatrix .resultArea_wrapper .displayArea .matrix_row .matrix_column {
+    height: clamp(25px, 2vw, 50px);
+    font-size: 1.3rem;
+  }
+}
+
+/*# sourceMappingURL=main.css.map */

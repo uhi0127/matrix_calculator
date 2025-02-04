@@ -1,0 +1,489 @@
+@forward "./_Reset.scss";
+
+@mixin set_matrix_row{
+   width:100%;
+   display:flex; 
+   justify-content:center;
+   align-items:center;
+   gap:clamp(5px,2vw,10px);
+}
+
+@mixin calculatesBtns{        
+   display:block;
+   width: clamp(30px, 20%, 80px);
+   aspect-ratio: 1/1;
+   & .btns{
+      width:100%;
+      height: 100%;
+      font-size:clamp(1rem, 5vw, 1.5rem);
+   }
+}
+
+$border_color:#3C3633;
+$header1_color:#2D3250;
+$header23_color:#5360b5;
+$button_gradientFrom:#6c739c;
+$button_gradientTo:#6c739c88;
+$all_inputBgColor:#FFF8E3;
+$inputBox_inputBgColor:#F3D7CA;
+
+*{
+   color:#444;
+   text-align:center;
+}
+
+html,body{
+   min-width: 320px;
+   font-size:16px;
+}
+body{
+   font-family: 'Noto Sans KR', 'Arial','Black Ops One',sans-serif,system-ui; 
+   background-color:#EEEDEB; 
+   display:flex;
+   justify-content:center;
+   align-items:center;
+}
+h1,h2,h3{ font-family:'Black Ops One',system-ui; }
+h1{
+   width:100%;
+   font-size:clamp(1.8rem,9vw,3rem);
+   color:$header1_color;
+   margin-bottom:1rem;
+}
+h2{
+   font-size:clamp(1.5rem,7vw,2.5rem);
+   letter-spacing:1.5px;
+   margin:20px 0;
+   color:$header23_color;
+}
+h3{
+   font-size:clamp(1.2rem,5vw,2rem);
+   color:$header23_color;
+}
+input{
+   width:clamp(28px, 10%, 40px); 
+   aspect-ratio: 1/1;
+   background-color:$all_inputBgColor;
+   border-radius:10px;
+   box-shadow: 2px 2px 2px rgba(0,0,0,0.2);
+}
+button{
+   display: flex; 
+   justify-content: center; 
+   align-items: center;
+   background: {
+      image:linear-gradient(90deg, $button_gradientFrom,$button_gradientTo); 
+   }
+   border:0 none; 
+   border-radius: 5px; 
+   outline:0; 
+   font-weight:bold; 
+   cursor:pointer; 
+   color:#555; 
+   transition:color linear .5s;
+   font-size:1.2rem;
+
+   &:hover{
+      background:linear-gradient(90deg, lightskyblue,transparent);color:white;
+   }
+}	
+
+.matrixCalculator{
+   width: 100%;
+   padding:1rem;
+   box-sizing: border-box;
+   display:flex;
+   justify-content:center;
+   align-items:center;
+   flex-direction: column;
+   & .info{
+      width:100%;
+      padding-left:40px;
+      box-sizing: border-box;
+      margin-bottom:20px;
+      & p{
+         display:block;
+         text-align: left;
+         margin-bottom:10px;
+         letter-spacing:1px;
+         & span.marked{ 
+            color:#a20000;
+            font-weight:700;
+         }
+      }
+   }
+
+   & .matrixBox{
+      width: 100%;
+      padding:clamp(10px, 5%, 40px);
+      box-sizing:border-box;
+      border-radius:10px;
+      display:flex;
+      flex-direction: column;
+      justify-content:center;
+      align-items:center;
+      gap:30px;
+      border:1px solid $border_color;
+      & .matrixes{
+         width: 100%;
+         padding:20px 15px;
+         border:1px solid $border_color;
+         box-sizing: border-box;
+         border-radius:10px;
+
+         & .inputBox{
+            width:100%; 
+            height: 50px;
+            margin:30px auto;
+            display:flex; 
+            justify-content:center;
+            align-items:center;
+            gap:clamp(5px, 5vw,30px);
+            & input{
+               width:clamp(28px,10vw,50px); 
+               font-size:1.5rem; 
+               background: {
+                  color : $inputBox_inputBgColor;
+               }
+            }
+            & span[class*="fa-solid"]{font-size:2rem;font-weight:900;}
+            & .drawBtn{
+               width:clamp(100px,14vw,150px);
+               height:clamp(35px,10vw,50px); 
+               padding:15px 20px;
+            }
+         }
+         
+         & .displayArea{
+            width:100%;
+            aspect-ratio: 1/1;
+            max-height: 500px;
+            margin: {
+               left:auto;
+               right:auto;
+            }
+            display:flex; 
+            flex-direction:column; 
+            justify-content:flex-start;
+            align-items:flex-start;
+            gap:10px;
+            .matrix_row{
+               @include set_matrix_row();
+               & .matrix_column{
+                  font-size:clamp(1rem, 5vw, 1.5rem);
+               }
+            }
+         }
+      }
+
+      & .calculatorToolBox{
+         width:100%;
+         padding:20px;
+         border:1px solid $border_color;
+         box-sizing: border-box;
+         border-radius:10px;
+         display:flex;
+         flex-direction:column;
+         justify-content:center;
+         align-items: center;
+         gap:30px;
+
+         & .restrict-width{
+            width:min(100%,450px);
+            &.selectBoxContainer{
+               display:flex;
+               flex-direction: column;
+               justify-content:center;
+               align-items: center;
+               gap:clamp(10px,7vw,40px);
+               & .selectBox{
+                  width:100%;
+                  display:flex;
+                  flex-direction:column;
+                  justify-content:center;
+                  align-items:center;
+                  gap:15px;
+   
+                  & .custom-select-wrapper {
+                     position: relative;
+                     width: 100%;
+                     user-select: none;
+   
+                     & .custom-select {
+                        width: 100%;
+                        position: relative;
+                        display: flex;
+                        flex-direction: column;
+                        cursor: pointer;
+   
+                        & .custom-select-trigger {
+                           width: 100%;
+                           position: relative;
+                           display: flex;
+                           justify-content: space-between;
+                           align-items: center;
+                           padding: 10px;
+                           font-weight: 700;
+                           color: #555;
+                           background: #FFF8E3;
+                           border-radius: 5px;
+                           box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+                           box-sizing: border-box;
+                           transition: all 0.5s;
+                           white-space:pre;
+                        }
+   
+                        & .custom-options {
+                           min-width: 100%;
+                           position: absolute;
+                           top: 100%;
+                           left: 0;
+                           z-index: 99;
+                           background: #FFF8E3;
+                           border-radius: 5px;
+                           box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+                           overflow: auto;
+                           transition: all 0.5s;
+                           display: none;
+                           
+                           & .custom-option{
+                              padding: 10px;
+                              box-sizing: border-box;
+                              text-align: left;
+                              white-space:pre;
+                              &:active, &:hover{
+                                 background: #f3d7ca;
+                              }
+                           }
+                           &.open{
+                              display: block;
+                           }
+                        }
+                    }
+                  }
+               }
+   
+               & .doCalculate{
+                  @include calculatesBtns();
+                  width: 100%;
+                  height: 50px;
+               }
+            }
+
+            &.calculatorBtn{
+               display: flex; 
+               justify-content: space-between; 
+               align-items: center;
+               & .calculates{
+                  @include calculatesBtns();
+               }
+            }
+         }
+      }
+
+      & .resultMatrix{
+         width: 100%;
+         padding:20px 15px;
+         border:1px solid $border_color;
+         box-sizing: border-box;
+         border-radius:10px;
+
+         & .resultArea_wrapper{
+            width: 100%;
+            aspect-ratio: 1/1;
+            min-height: 400px;
+            max-height: 500px;
+            box-sizing: border-box;
+            overflow-x: scroll;
+            & .displayArea{
+               width:100%;
+               height:100%;
+               display:flex; 
+               flex-direction:column; 
+               justify-content:flex-start; 
+               align-items:flex-start;
+               gap:10px;
+   
+               & .matrix_row{
+                  @include set_matrix_row();
+                  
+                  gap:clamp(10px,4vw,20px);
+                  justify-content: space-evenly;
+                  & .matrix_column{
+                     width:clamp(55px, 10%, 80px);
+                     padding:10px;
+                     aspect-ratio:unset;
+                     font-size:clamp(1rem, 2.3vw, 1.5rem);
+                  }
+               }
+            }
+         }
+      }
+   }	
+}
+
+.alertFailedBox {
+   width: 100vw;
+   height: 100vh;
+   background: rgba(0, 0, 0, 0.7);
+   position: fixed;
+   left: 50%;
+   top: 50%;
+   transform: translate(-50%, -50%);
+   display: none;
+   &.open{
+      display: block;
+   }
+   & p.alertNotice{
+      font-size:4rem;font-weight:bold;position:relative;
+      &::after{
+         content:"";position:absolute;left:0;right:0;bottom:-3px;height:2px;background:$header1_color;
+      }
+   }
+   & .alertPara_wrap {
+      width: 600px;
+      background: #ffffff;
+      border-radius: 40px;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 20;
+      display: flex;
+      flex-direction:column;
+      justify-content: space-evenly;
+      align-items: center;gap:20px;
+      padding:30px 0;
+      & .alertParaBox{
+         width:450px;
+         padding:40px 0;
+         position:relative;
+         &>a.flaticon{
+            width:80px; height:80px;
+            position:absolute; top:50%;left:0;transform:translateY(-50%);
+            background:url("../images/matrix.png") no-repeat center center; background-size:contain;
+            text-indent:-9999rem;
+         }
+
+         &:nth-of-type(1)::before{
+            content:"";width:80px; height:80px;
+            position:absolute; top:50%;left:0;transform:translateY(-50%);
+            background:url("../images/wow_mark.png") no-repeat center center;background-size:contain;
+         }
+
+         & p{
+            width:100%; padding-left:120px;font-size:1.4rem;text-align:left; 
+         }
+         
+         
+      }
+
+      & button.alertCheck {
+         width: 300px;
+         height: 80px;
+         font-size: 2.5rem;
+         border-radius: 20px;
+         background: #0d6efd;
+         color:white;
+         margin-bottom:unset;
+      }
+   }
+}
+
+@media  screen and (min-width: 1024px){
+   html,body{
+      font-size:18px;
+   }
+   h1{
+      font-size:clamp(1.8rem,9vw,3rem);
+   }
+   h2{
+      font-size:min(3.5vw,2.5rem);
+   }
+   h3{
+      font-size:clamp(1.2rem,3vw,2rem);
+   }
+   .matrixCalculator{
+      width: min(100%, 1500px);
+      padding:2rem;
+      margin:50px auto;
+      & .matrixBox{
+         height: clamp(500px, 100%, 800px);
+         flex-direction: row; 
+         justify-content:space-between;
+         align-items: stretch;
+         flex-wrap: wrap;
+         & .matrixes{
+            width: calc( (100% - 40px) / 2 );
+            & .inputBox{
+               margin:50px auto;
+               & input{
+                  width:min(13%,4rem); 
+                  font-size:2rem; 
+               }
+               
+               & .drawBtn{
+                  width:clamp(100px,10vw,150px);
+                  height: 100%;
+               }
+            }
+
+            & .displayArea{
+               & .matrix_row{
+                  gap:clamp(5px,0.6vw,10px);
+                  & .matrix_column{
+                     width:min(10%,4rem); 
+                     font-size:1.1rem; 
+                  }
+               }
+               
+            }
+         }
+
+         & .calculatorToolBox{
+            align-items: center;
+            & .restrict-width{
+               width: min(60%, 1000px);
+               &.selectBoxContainer{ 
+                  flex-direction: row;
+                  justify-content: space-between;
+                  gap:unset;
+                  & .selectBox{
+                     width:35%;
+                     
+                  }
+                  & .doCalculate{
+                     @include calculatesBtns();
+                     height:unset;
+                  }
+               }
+   
+               &.calculatorBtn{
+                  justify-content: space-between;
+               }
+            }
+            
+         }
+
+         & .resultMatrix{
+            & h2{
+               margin:20px 0 60px;
+            }
+            overflow: hidden;
+            & .resultArea_wrapper{
+               overflow-x: scroll;
+               & .displayArea{
+                  & .matrix_row{
+                     justify-content: center;
+                     & .matrix_column{
+                        height:clamp(25px,2vw,50px);
+                        font-size:1.3rem; 
+                     }
+                  }
+               }
+            }
+         }
+      }
+   }
+   
+}
